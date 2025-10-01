@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from fastapi.staticfiles import staticFiles
+from fastapi.staticfiles import StaticFiles
 from fastapi.openapi.docs import get_swagger_ui_html, get_redoc_html
 from schemal import ComplaintRequest, ComplaintResponse, ApiStatus, Result
 import logging
@@ -23,7 +23,7 @@ app = FastAPI(
     redoc_url=None
 )
 # 挂载Swagger UI静态资源目录
-app.mount("/static", staticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.post("/v1/process", response_model=ComplaintResponse)
 async def process_complaint(request: ComplaintRequest):
@@ -74,4 +74,5 @@ async def redoc_html():
         openapi_url=app.openapi_url,
         title=app.title +"- ReDoc",
         redoc_js_url="/static/redoc.standalone.js"
+
     )
