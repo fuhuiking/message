@@ -1,10 +1,10 @@
-from fastapi.staticfiles import staticFiles
+from fastapi.staticfiles import StaticFiles
 from fastapi.openapi.docs import get_swagger_ui_html, get_redoc_html
 from fastapi import FastAPI
 app = FastAPI(docs_url=None, redoc_url=None)
 
 # 挂载Swagger UI静态资源目录
-app.mount("/static", staticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 #自定义/docs路由
 @app.get("/docs", include_in_schema=False)
